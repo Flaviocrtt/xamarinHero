@@ -10,7 +10,7 @@ namespace Phoneword
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new MainPageSemXaml();
         }
 
         protected override void OnStart()
