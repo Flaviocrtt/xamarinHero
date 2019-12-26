@@ -11,7 +11,7 @@ namespace Astronomy
         {
             InitializeComponent();
 
-            MainPage = new AboutPage();
+            MainPage = new AstronomyMasterDetailPage();
         }
 
         protected override void OnStart()
