@@ -14,7 +14,6 @@ namespace GreatQuotes.iOS {
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        public MainViewModel GreatQuotesViewModel { get; private set; }
 
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -25,14 +24,13 @@ namespace GreatQuotes.iOS {
         //
         public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
-            var quoteLoader = new QuoteLoader();
-            GreatQuotesViewModel = new MainViewModel(() => quoteLoader.Save(GreatQuotesViewModel.Quotes)) {
-                Quotes = new ObservableCollection<GreatQuoteViewModel>(quoteLoader.Load())
-            };
+            
 
             global::Xamarin.Forms.Forms.Init();
-            var app = new App(GreatQuotesViewModel);
+            var app = new App();
             LoadApplication(app);
+
+            QuoteLoaderFactory.Create = () => new QuoteLoader();
 
             return base.FinishedLaunching(uiApplication, launchOptions);
         }

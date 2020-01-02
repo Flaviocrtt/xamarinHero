@@ -10,10 +10,10 @@ namespace GreatQuotes
     {
         public static MainViewModel GreatQuotesViewModel { get; internal set; }
 
-        public App(MainViewModel greatQuotes)
+        public App()
         {
             InitializeComponent();
-            GreatQuotesViewModel = greatQuotes;
+            GreatQuotesViewModel = new MainViewModel();
             MainPage = new NavigationPage (new QuoteListPage());
         }
 
@@ -24,7 +24,7 @@ namespace GreatQuotes
 
         protected override void OnSleep()
         {
-            GreatQuotesViewModel.SaveQuotes();
+            QuoteManager.Instance.Save();
         }
 
         protected override void OnResume()

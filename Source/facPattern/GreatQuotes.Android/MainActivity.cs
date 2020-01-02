@@ -9,7 +9,6 @@ namespace GreatQuotes.Droid {
     [Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        public MainViewModel GreatQuotesViewModel { get; private set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -21,12 +20,9 @@ namespace GreatQuotes.Droid {
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            var quoteLoader = new QuoteLoader();
-            GreatQuotesViewModel = new MainViewModel(() => quoteLoader.Save(GreatQuotesViewModel.Quotes)) {
-                Quotes = new ObservableCollection<GreatQuoteViewModel>(quoteLoader.Load())
-            };
+            QuoteLoaderFactory.Create = () => new QuoteLoader();
 
-            var app = new App(GreatQuotesViewModel);
+            var app = new App();
             LoadApplication(app);
         }
 
