@@ -18,5 +18,9 @@ namespace GreatQuotes.ViewModels {
         public void SaveQuotes() {
             quoteManager.Save();
         }
+        public void SayQuotes(GreatQuoteViewModel quote)
+        {
+            quoteManager.SayQuote(quote);
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace GreatQuotes.iOS {
         {
             QuoteLoaderFactory.Create = () => new QuoteLoader();
 
+            ServiceLocator.Instance.Add<ITextToSpeech, TextToSpeechService>();
+
             global::Xamarin.Forms.Forms.Init();
 
             LoadApplication(new App());
