@@ -9,6 +9,8 @@ namespace GreatQuotes.Droid {
     [Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        readonly SimpleContainer container = new SimpleContainer();
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -16,8 +18,9 @@ namespace GreatQuotes.Droid {
 
             base.OnCreate(savedInstanceState);
 
-            QuoteLoaderFactory.Create = () => new QuoteLoader();
-            ServiceLocator.Instance.Add<ITextToSpeech, TextToSpeechService>();
+            container.Register<IQuoteLoader, QuoteLoader>();
+            container.Register<ITextToSpeech, TextToSpeechService>();
+            container.Create<QuoteManager>();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

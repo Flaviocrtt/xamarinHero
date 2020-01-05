@@ -16,10 +16,13 @@ namespace GreatQuotes.iOS {
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
+        readonly SimpleContainer container = new SimpleContainer();
+
         public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
-            QuoteLoaderFactory.Create = () => new QuoteLoader();
-            ServiceLocator.Instance.Add<ITextToSpeech, TextToSpeechService>();
+            container.Register<IQuoteLoader, QuoteLoader>();
+            container.Register<ITextToSpeech, TextToSpeechService>();
+            container.Create<QuoteManager>();
 
             global::Xamarin.Forms.Forms.Init();
 
