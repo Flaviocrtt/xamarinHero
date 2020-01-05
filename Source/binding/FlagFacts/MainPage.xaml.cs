@@ -32,20 +32,7 @@ namespace FlagFacts
         private void InitializeData()
         {
             country.ItemsSource = (IList) repository.Countries;
-            //country.SelectedItem = CurrentFlag.Country;
-            //country.SelectedIndexChanged += (s, e) => CurrentFlag.Country = repository.Countries[country.SelectedIndex];
-            //country.BindingContext = CurrentFlag;
-            //country.SetBinding(Picker.SelectedItemProperty, new Binding(nameof(CurrentFlag.Country)));
-
             flagImage.Source = CurrentFlag.GetImageSource();
-
-            //adopted.Date = CurrentFlag.DateAdopted;
-            //adopted.DateSelected += (s, e) => CurrentFlag.DateAdopted = e.NewDate;
-
-            //hasShield.IsToggled = CurrentFlag.IncludesShield;
-            //hasShield.Toggled += (s, e) => CurrentFlag.IncludesShield = hasShield.IsToggled;
-
-            //description.Text = CurrentFlag.Description;
 
             // Set the binding context
             this.BindingContext = CurrentFlag;
@@ -53,6 +40,8 @@ namespace FlagFacts
 
         private async void OnShow(object sender, EventArgs e)
         {
+            CurrentFlag.DateAdopted = CurrentFlag.DateAdopted.AddYears(1);
+
             await DisplayAlert(CurrentFlag.Country,
                 $"{CurrentFlag.DateAdopted:D} - {CurrentFlag.IncludesShield}: {CurrentFlag.MoreInformationUrl}", 
                 "OK");
