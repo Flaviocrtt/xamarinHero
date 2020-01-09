@@ -35,7 +35,13 @@ namespace XFDraw
 
         private void OnColorClicked()
         {
-
+            sketchView.InkColor = GetRandomColor();
+        }
+        
+        Random rand = new Random();
+        Color GetRandomColor()
+        {
+            return new Color(rand.NextDouble(), rand.NextDouble(), rand.NextDouble());
         }
     }
 }
