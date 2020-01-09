@@ -37,11 +37,5 @@ namespace XFDraw
         {
 
         }
-
-        Random rand = new Random();
-        Color GetRandomColor()
-        {
-            return new Color(rand.NextDouble(), rand.NextDouble(), rand.NextDouble());
-        }
     }
 }
