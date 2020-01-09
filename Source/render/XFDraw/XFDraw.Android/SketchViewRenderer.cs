@@ -26,7 +26,30 @@ namespace XFDraw
                 var paintView = new PaintView(context);
                 paintView.SetInkColor(Element.InkColor.ToAndroid());
                 SetNativeControl(paintView);
+                MessagingCenter.Subscribe<SketchView>(this, "Clear", OnMessageClear);
+
+                paintView.LineDrawn += PaintViewLineDrawn;
             }
+        }
+
+        private void PaintViewLineDrawn(object sender, System.EventArgs e)
+        {
+            var sketchCon = (ISketchController)Element;
+
+            if (sketchCon == null)
+                return;
+
+            sketchCon.SendSketchUpdated();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                MessagingCenter.Unsubscribe<SketchView>(this, "Clear");
+            }
+
+            base.Dispose(disposing);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -37,6 +60,11 @@ namespace XFDraw
             {
                 Control.SetInkColor(Element.InkColor.ToAndroid());
             }
+        }
+        void OnMessageClear(SketchView sender)
+        {
+            if (sender == Element)
+                Control.Clear();
         }
     }
 }

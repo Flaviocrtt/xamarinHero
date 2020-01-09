@@ -13,25 +13,52 @@ namespace XFDraw
     [DesignTimeVisible(true)]
     public partial class MainPage : ContentPage
     {
+        bool IsCanvasDirty
+        {
+            get { return isCanvasDirty; }
+            set
+            {
+                isCanvasDirty = value;
+
+                if (clearCommand != null)
+                    clearCommand.ChangeCanExecute();
+            }
+        }
+        bool isCanvasDirty;
+
+        Command clearCommand;
+
         public MainPage()
         {
             InitializeComponent();
-            
+            sketchView.SketchUpdated += OnSketchUpdated;
+
+            clearCommand = new Command(OnClearClicked, () => { return IsCanvasDirty; });
+
             var trash = new ToolbarItem()
             {
                 Text = "Clear",
                 Icon = "trash.png",
+                Command = clearCommand
             };
             trash.Clicked += (o, s) => OnClearClicked();
             ToolbarItems.Add(trash);
 
             ToolbarItems.Add(new ToolbarItem("New Color", "pencil.png", OnColorClicked));
-        }
 
-        private void OnClearClicked()
+            
+        }
+        void OnSketchUpdated(object sender, EventArgs e)
         {
-
+            IsCanvasDirty = true;
         }
+
+        void OnClearClicked()
+        {
+            sketchView.Clear();
+            IsCanvasDirty = false;
+        }
+
 
         private void OnColorClicked()
         {
