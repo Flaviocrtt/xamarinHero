@@ -63,7 +63,9 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gradient.Droid.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MyButtonGradientEffect.cs" />
     <Compile Include="MyCustomFontEffect.Droid.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
