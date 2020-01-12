@@ -40,7 +40,8 @@ namespace ControlExplorer
 
         private void OnSliderColorValueChanged(object sender, ValueChangedEventArgs e)
         {
-
+            Color gradColor = new Color(e.NewValue / 255.0, e.NewValue / 255.0, e.NewValue / 255.0);
+            ButtonGradientEffect.SetGradientColor(buttonClick, gradColor);
         }
     }
 }
